@@ -11,10 +11,13 @@
 
 
 @interface FeedScreenViewController ()
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinnerView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityspinner;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *onScrollView;
 - (IBAction)onBackButton:(id)sender;
--(void)checkFeed;
+
+-(void)showScrollView;
+
 
 @end
 
@@ -32,6 +35,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.activityspinner startAnimating];
+    
+    self.onScrollView.alpha = 0;
+    
+    [self performSelector:@selector(showScrollView) withObject:nil afterDelay:2];
+    
     self.onScrollView.contentSize = CGSizeMake(320,1200);
 }
 
@@ -49,6 +59,18 @@
     
     [self presentViewController:vc animated:YES completion:nil];
 }
--(void)checkFeed;{
+
+-(void)showScrollView{
+    
+    {
+        [UIView animateWithDuration:.5 animations:^{
+            self.onScrollView.alpha = 1;
+        }];
+        
+        [self.activityspinner stopAnimating];
+    }
+    
+
+    
 }
 @end
